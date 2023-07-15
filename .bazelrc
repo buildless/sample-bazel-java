@@ -5,7 +5,6 @@ build --modify_execution_info=PackageTar=+no-remote
 build --experimental_remote_merkle_tree_cache
 build --remote_local_fallback
 build --incompatible_remote_results_ignore_disk
-build --noremote_upload_local_results
 build --noexperimental_check_output_files --noexperimental_check_external_repository_files
 build --experimental_remote_build_event_upload=minimal
 build --incompatible_default_to_explicit_init_py
