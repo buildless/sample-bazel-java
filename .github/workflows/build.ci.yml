@@ -1,0 +1,49 @@
+name: "Build: Sample"
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "*.java"
+      - src
+      - BUILD
+      - "*.build"
+      - WORKSPACE
+      - WORKSPACE.bazel
+      - WORKSPACE.bzlmod
+      - MODULE.bazel
+      - .github/workflows/build.ci.yml
+
+  pull_request:
+    paths:
+        - "*.java"
+        - src
+        - BUILD
+        - "*.build"
+        - WORKSPACE
+        - WORKSPACE.bazel
+        - WORKSPACE.bzlmod
+        - MODULE.bazel
+        - .github/workflows/build.ci.yml
+
+  schedule:
+    - cron: '30 */2 * * *'
+
+jobs:
+  ## Build sample app
+  build-sample:
+    name: "Sample App"
+    uses: elide-dev/build-infra/.github/workflows/bazel.yml@main
+    secrets:
+      BUILDLESS_APIKEY: ${{ secrets.BUILDLESS_APIKEY }}
+      SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+    permissions:
+      checks: write
+      pull-requests: read
+      id-token: write
+      actions: read
+      contents: write
+    with:
+      jvm: '19'
+      runner: ubuntu-latest
